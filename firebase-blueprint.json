@@ -1,0 +1,111 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "location": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "displayName"]
+    },
+    "Listing": {
+      "title": "Listing",
+      "description": "An animal listing for sale or purchase",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "currency": { "type": "string", "enum": ["TJS", "UZS", "USD"] },
+        "category": { "type": "string" },
+        "breed": { "type": "string" },
+        "type": { "type": "string", "enum": ["sale", "purchase"] },
+        "images": { "type": "array", "items": { "type": "string" } },
+        "location": { "type": "string" },
+        "country": { "type": "string", "enum": ["Tajikistan", "Uzbekistan"] },
+        "ownerId": { "type": "string" },
+        "ownerName": { "type": "string" },
+        "ownerPhone": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["active", "sold", "archived"] }
+      },
+      "required": ["title", "price", "category", "type", "ownerId", "country"]
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "A comment or review on a listing",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "text": { "type": "string" },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["text", "authorId", "authorName", "createdAt"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "A record of a completed sale",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "listingId": { "type": "string" },
+        "listingTitle": { "type": "string" },
+        "buyerId": { "type": "string" },
+        "buyerName": { "type": "string" },
+        "sellerId": { "type": "string" },
+        "sellerName": { "type": "string" },
+        "price": { "type": "number" },
+        "currency": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["listingId", "buyerId", "sellerId", "price", "createdAt"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "A review for a user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "targetUserId": { "type": "string" },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "rating": { "type": "number" },
+        "comment": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["targetUserId", "authorId", "rating", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/listings/{listingId}": {
+      "schema": "Listing",
+      "description": "Animal listings"
+    },
+    "/listings/{listingId}/comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Comments on a listing"
+    },
+    "/transactions/{transactionId}": {
+      "schema": "Transaction",
+      "description": "Completed transactions"
+    },
+    "/users/{userId}/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Reviews for a user"
+    }
+  }
+}

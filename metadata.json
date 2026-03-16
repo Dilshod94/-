@@ -1,0 +1,8 @@
+{
+  "name": "Mol Bozor",
+  "description": "Mol Bozor - A marketplace for buying and selling animals in Tajikistan and Uzbekistan, supporting Russian, Uzbek, and Tajik languages.",
+  "requestFramePermissions": [
+    "geolocation",
+    "camera"
+  ]
+}
